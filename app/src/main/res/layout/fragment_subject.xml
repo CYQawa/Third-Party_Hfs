@@ -1,54 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
      xmlns:android="http://schemas.android.com/apk/res/android"
      xmlns:app="http://schemas.android.com/apk/res-auto"
      android:layout_height="match_parent"
-     android:layout_width="match_parent"
-     android:padding="16dp"
-     android:orientation="vertical">
+     android:layout_width="match_parent">
 
-    <com.google.android.material.card.MaterialCardView
-         android:layout_height="wrap_content"
+    <LinearLayout
+         android:layout_height="match_parent"
          android:layout_width="match_parent"
-         android:layout_margin="10dp"
-         android:padding="16dp">
+         android:orientation="vertical">
 
-        <LinearLayout
+        <com.google.android.material.card.MaterialCardView
              android:layout_height="wrap_content"
              android:layout_width="match_parent"
-             android:padding="16dp"
-             android:orientation="vertical">
+             android:layout_margin="26dp"
+             android:padding="16dp">
 
-            <TextView
+            <LinearLayout
                  android:layout_height="wrap_content"
                  android:layout_width="match_parent"
-                 android:textSize="18sp"
-                 android:id="@+id/tvSubject"
-                 android:textStyle="bold" />
+                 android:padding="16dp"
+                 android:orientation="vertical">
 
-            <TextView
-                 android:layout_height="wrap_content"
-                 android:layout_width="wrap_content"
-                 android:layout_marginTop="8dp"
-                 android:id="@+id/tvScore" />
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:textSize="18sp"
+                     android:id="@+id/tvSubject"
+                     android:textStyle="bold" />
 
-            <ProgressBar
-                 android:layout_height="wrap_content"
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="wrap_content"
+                     android:layout_marginTop="8dp"
+                     android:id="@+id/tvScore" />
+
+                <ProgressBar
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:max="100"
+                     style="?android:attr/progressBarStyleHorizontal"
+                     android:layout_marginTop="16dp"
+                     android:id="@+id/progressBar" />
+
+                <com.google.android.material.progressindicator.CircularProgressIndicator
+                     android:layout_height="64dp"
+                     android:layout_width="64dp"
+                     android:layout_centerInParent="true"
+                     app:trackThickness="4dp"
+                     android:id="@+id/circularProgress" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:layout_margin="26dp">
+
+            <LinearLayout
+                 android:layout_height="match_parent"
                  android:layout_width="match_parent"
-                 android:max="100"
-                 style="?android:attr/progressBarStyleHorizontal"
-                 android:layout_marginTop="16dp"
-                 android:id="@+id/progressBar" />
+                 android:padding="16dp"
+                 android:orientation="vertical">
 
-            <com.google.android.material.progressindicator.CircularProgressIndicator
-                 android:layout_height="64dp"
-                 android:layout_width="64dp"
-                 android:layout_centerInParent="true"
-                 app:trackThickness="4dp"
-                 android:id="@+id/circularProgress" />
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:textSize="18sp"
+                     android:layout_marginTop="8dp"
+                     android:text="班级排名"
+                     android:textStyle="bold" />
 
-        </LinearLayout>
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:layout_marginTop="8dp"
+                     android:id="@+id/tvClassRank"
+                     android:text="· 获取中……"
+                     android:textStyle="normal" />
+                                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:textSize="18sp"
+                     android:layout_marginTop="8dp"
+                     android:text="年段排名"
+                     android:textStyle="bold" />
 
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:layout_marginTop="8dp"
+                     android:id="@+id/tvGradeRank"
+                     android:text="· 获取中……"
+                     android:textStyle="normal" />
 
-</LinearLayout>
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:textSize="18sp"
+                     android:layout_marginTop="8dp"
+                     android:text="level"
+                     android:textStyle="bold" />
+
+                <TextView
+                     android:layout_height="wrap_content"
+                     android:layout_width="match_parent"
+                     android:layout_marginTop="8dp"
+                     android:id="@+id/tvlevel"
+                    android:text="· 获取中……"
+                     android:textStyle="normal" />
+
+            </LinearLayout>
+
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+
+</ScrollView>

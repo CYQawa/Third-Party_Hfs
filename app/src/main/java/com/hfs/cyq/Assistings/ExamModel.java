@@ -103,6 +103,14 @@ public class ExamModel {
     public void setCompare(Compare compare) {
       this.compare = compare;
     }
+
+    public long getExamId() {
+      return this.examId;
+    }
+
+    public void setExamId(long examId) {
+      this.examId = examId;
+    }
   }
 
   // Paper.java
@@ -180,6 +188,48 @@ public class ExamModel {
 
     public int getCurGradeRank() {
       return this.curGradeRank;
+    }
+  }
+
+  public class PaperOverview implements Serializable {
+    private Data data;
+
+    public class Data {
+      private Compare compare; // 重点是这个对象
+      private String level;
+
+      public class Compare {
+        private int cr; // 班级排名
+        private int gr; // 年级排名
+
+        public int getCr() {
+          return cr;
+        }
+
+        public int getGr() {
+          return gr;
+        }
+      }
+
+      public Compare getCompare() {
+        return this.compare;
+      }
+
+      public String getLevel() {
+        return this.level;
+      }
+
+      public void setLevel(String level) {
+        this.level = level;
+      }
+    }
+
+    public Data getData() {
+      return this.data;
+    }
+
+    public void setData(Data data) {
+      this.data = data;
     }
   }
 

@@ -21,7 +21,7 @@ public class ExamPagerAdapter extends FragmentStateAdapter {
             return OverviewFragment.newInstance(exam);
         } else {
             Paper paper = exam.getPapers().get(position - 1); // 调整索引
-            return SubjectFragment.newInstance(paper);
+            return SubjectFragment.newInstance(paper,exam.getExamId());
         }
     }
 
