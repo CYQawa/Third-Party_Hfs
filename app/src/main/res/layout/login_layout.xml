@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:gravity="center_horizontal"
+     android:orientation="vertical">
+
+    <LinearLayout
+         android:layout_height="50dp"
+         android:layout_width="match_parent"
+         android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/btn_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:text="取消"
+            android:textColor="@color/dialogxIOSBlue"
+            android:textSize="18dp" />       
+
+        <Space
+             android:layout_height="match_parent"
+             android:layout_width="match_parent"
+             android:layout_weight="1" />
+
+        <TextView
+             android:layout_height="match_parent"
+             android:layout_width="wrap_content"
+             android:gravity="center"
+             android:paddingRight="15dp"
+             android:textSize="18dp"
+             android:paddingLeft="15dp"
+             android:textColor="@color/dialogxIOSBlue"
+             android:id="@+id/btn_submit"
+             android:text="下一步" />
+
+    </LinearLayout>
+
+    <ImageView
+         android:layout_height="80dp"
+         android:layout_width="80dp"
+         android:src="@drawable/img_login"
+         android:layout_marginTop="30dp" />
+
+    <FrameLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_marginTop="25dp">
+
+        <RelativeLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:paddingRight="25dp"
+             android:paddingLeft="25dp"
+             android:id="@+id/box_userName">
+
+            <EditText
+                 android:layout_height="50dp"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/ios_edit_box_bkg"
+                 android:gravity="center"
+                 android:hint="请输入账号"
+                 android:inputType="textEmailAddress"
+                 android:id="@+id/edit_userName" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:visibility="gone"
+             android:paddingRight="25dp"
+             android:paddingLeft="25dp"
+             android:id="@+id/box_password">
+
+            <EditText
+                 android:layout_height="50dp"
+                 android:layout_width="match_parent"
+                 android:background="@drawable/ios_edit_box_bkg"
+                 android:gravity="center"
+                 android:hint="请输入密码"
+                 android:inputType="textPassword"
+                 android:id="@+id/edit_password" />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <TextView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:gravity="center"
+         android:textSize="13dp"
+         android:textColor="@color/black"
+         android:layout_marginTop="25dp"
+         android:text="登录你的好分数账号后，您可以："
+         android:textStyle="bold" />
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:orientation="vertical"
+         android:layout_marginTop="15dp">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:textSize="13dp"
+             android:textColor="@color/black75"
+             android:text="· 查看考试成绩，不用vip查看排名" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:textSize="13dp"
+             android:textColor="@color/black75"
+             android:layout_marginTop="7dp"
+             android:text="· token将会保存在本地，不会上传" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:textSize="13dp"
+             android:textColor="@color/black75"
+             android:layout_marginTop="7dp"
+             android:text="· 登录不会影响原好分数登陆状态" />
+
+    </LinearLayout>
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="wrap_content"
+         android:orientation="horizontal"
+         android:layout_marginTop="15dp">
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:gravity="center"
+             android:textSize="13dp"
+             android:textColor="@color/black"
+             android:layout_marginTop="25dp"
+             android:text="登录代表您同意" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:gravity="center"
+             android:textSize="13dp"
+             android:textColor="@color/dialogxIOSBlue"
+             android:layout_marginTop="25dp"
+             android:id="@+id/btn_license"
+             android:text="第三方好分数获取token" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="13dp"
+        android:textColor="@color/dialogxIOSBlue"
+        android:layout_marginTop="25dp"
+        android:id="@+id/btn_importtoken"
+             android:text="我已有token？点击登陆" />
+    
+    <Space
+         android:layout_height="50dp"
+         android:layout_width="match_parent" />
+
+</LinearLayout>

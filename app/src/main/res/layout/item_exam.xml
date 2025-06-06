@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     android:layout_height="wrap_content"
+     android:layout_width="match_parent"
+     android:background="?android:attr/selectableItemBackground"
+    android:layout_margin="10dp"
+     android:padding="16dp">
+
+    <LinearLayout
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:padding="16dp"
+         android:orientation="vertical">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="wrap_content">
+
+            <ImageView
+                 android:layout_height="30dp"
+                 android:layout_width="30dp"
+                 android:src="@drawable/ic_exam" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:textSize="18sp"
+                 android:id="@+id/tvExamName"
+                 android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:textSize="14sp"
+             android:textColor="#666"
+             android:layout_marginTop="4dp"
+             android:id="@+id/tvExamId" />
+
+        <TextView
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:textSize="16sp"
+             android:layout_marginTop="8dp"
+             android:id="@+id/tvTotalScore" />
+
+    </LinearLayout>
+
+</com.google.android.material.card.MaterialCardView>

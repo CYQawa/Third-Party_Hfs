@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+     xmlns:android="http://schemas.android.com/apk/res/android"
+     xmlns:app="http://schemas.android.com/apk/res-auto"
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+     android:padding="16dp"
+     android:orientation="vertical">
+
+    <com.google.android.material.card.MaterialCardView
+         android:layout_height="wrap_content"
+         android:layout_width="match_parent"
+         android:layout_margin="10dp"
+         android:padding="16dp">
+
+        <LinearLayout
+             android:layout_height="wrap_content"
+             android:layout_width="match_parent"
+             android:padding="16dp"
+             android:orientation="vertical">
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:textSize="18sp"
+                 android:id="@+id/tvSubject"
+                 android:textStyle="bold" />
+
+            <TextView
+                 android:layout_height="wrap_content"
+                 android:layout_width="wrap_content"
+                 android:layout_marginTop="8dp"
+                 android:id="@+id/tvScore" />
+
+            <ProgressBar
+                 android:layout_height="wrap_content"
+                 android:layout_width="match_parent"
+                 android:max="100"
+                 style="?android:attr/progressBarStyleHorizontal"
+                 android:layout_marginTop="16dp"
+                 android:id="@+id/progressBar" />
+
+            <com.google.android.material.progressindicator.CircularProgressIndicator
+                 android:layout_height="64dp"
+                 android:layout_width="64dp"
+                 android:layout_centerInParent="true"
+                 app:trackThickness="4dp"
+                 android:id="@+id/circularProgress" />
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</LinearLayout>

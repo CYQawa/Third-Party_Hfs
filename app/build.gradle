@@ -1,0 +1,50 @@
+
+plugins {
+    id 'com.android.application'
+    
+}
+
+android {
+    namespace 'com.hfs.cyq'
+    compileSdk 33
+    
+    defaultConfig {
+        applicationId "com.hfs.cyq"
+        minSdk 21
+        targetSdk 33
+        versionCode 1
+        versionName "4.0"
+        
+        vectorDrawables { 
+            useSupportLibrary true
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    buildFeatures {
+        viewBinding true
+        
+    }
+    
+}
+
+dependencies {
+    def dialogx_version = "0.0.50.beta36"
+implementation "com.github.kongzue.DialogX:DialogX:${dialogx_version}"
+implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+implementation 'com.google.code.gson:gson:2.8.9'
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.google.android.material:material:1.9.0")
+    implementation("androidx.appcompat:appcompat:1.6.1")
+}
