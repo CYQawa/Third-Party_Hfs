@@ -75,6 +75,19 @@
         <com.google.android.material.button.MaterialButton
              android:layout_height="56dp"
              android:layout_width="match_parent"
+             app:icon="@drawable/ic_my"
+             android:layout_marginBottom="16dp"
+             app:strokeColor="?attr/colorOutline"
+             app:iconTint="?attr/colorOnSurfaceVariant"
+             app:strokeWidth="1dp"
+             android:textColor="?attr/colorOnSurfaceVariant"
+             style="@style/Widget.Material3.Button.OutlinedButton"
+             android:id="@+id/btn_upload_avatar"
+             android:text="上传自定义头像" />
+        
+        <com.google.android.material.button.MaterialButton
+             android:layout_height="56dp"
+             android:layout_width="match_parent"
              app:icon="@drawable/ic_key"
              android:layout_marginBottom="16dp"
              app:strokeColor="?attr/colorOutline"

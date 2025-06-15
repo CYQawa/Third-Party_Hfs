@@ -194,4 +194,40 @@ public class Network {
               }
             });
   }
+  public void UploadAvatar(String url, NetworkCallback callback) {
+    JSONObject jsonObject = new JSONObject();
+    try {
+      jsonObject.put("avatar", url);
+    } catch (JSONException e) {
+      callback.onFailure(e);
+    }
+    RequestBody body = RequestBody.create(jsonObject.toString(), MediaType.get("application/json"));
+
+    Request request =
+        new Request.Builder()
+            .url("https://hfs-be.yunxiao.com/v2/user-center/public-info")
+        .addHeader("Cookie", "hfs-session-id=" + token)
+            .patch(body)
+            .addHeader("Content-Type", "application/json")
+            .build();
+    client
+        .newCall(request)
+        .enqueue(
+            new Callback() {
+              @Override
+              public void onFailure(Call call, IOException e) {
+                    MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
+                callback.onFailure(e);
+              }
+              @Override
+              public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                        String data = response.body().string();
+                        callback.onSuccess(data);
+                } else {
+                  callback.onFailure(new IOException("Request failed: " + response.code()));
+                }
+              }
+            });
+  }
 }
