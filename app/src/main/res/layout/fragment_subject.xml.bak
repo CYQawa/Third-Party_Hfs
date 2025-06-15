@@ -33,7 +33,8 @@
                      android:layout_width="match_parent"
                      android:textAppearance="@style/TextAppearance.Material3.HeadlineSmall"
                      android:textColor="@color/m3_sys_color_light_on_surface"
-                     android:id="@+id/tvSubject" />
+                     android:id="@+id/tvSubject"
+                     android:text="数学成绩" />
 
                 <LinearLayout
                      android:layout_height="wrap_content"
@@ -133,7 +134,7 @@
                      android:textColor="@color/m3_sys_color_light_on_surface_variant"
                      android:layout_marginTop="8dp"
                      android:id="@+id/tvGradeRank"
-                     android:text="· 获取中……" />
+                     android:text="· 加载中……" />
 
                 <View
                      android:layout_height="1dp"
@@ -146,7 +147,7 @@
                      android:layout_width="match_parent"
                      android:textStyle="bold"
                      android:textColor="@color/m3_sys_color_light_on_surface"
-                     android:text="Level" />
+                     android:text="等级" />
 
                 <TextView
                      android:layout_height="wrap_content"
@@ -155,7 +156,7 @@
                      android:textColor="@color/m3_sys_color_light_on_surface_variant"
                      android:layout_marginTop="8dp"
                      android:id="@+id/tvlevel"
-                     android:text="· 获取🀄……" />
+                     android:text="· 加载中……" />
 
             </LinearLayout>
 
