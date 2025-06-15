@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-     xmlns:android="http://schemas.android.com/apk/res/android"
-     xmlns:app="http://schemas.android.com/apk/res-auto"
-     android:layout_height="match_parent"
-     android:layout_width="match_parent">
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <LinearLayout
-         android:layout_height="match_parent"
-         android:layout_width="match_parent"
-         android:orientation="vertical">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemeOverlay.Material3.DynamicColors.DayNight"
+        >
 
         <com.google.android.material.appbar.CollapsingToolbarLayout
-             android:layout_height="200dp"
-             android:layout_width="match_parent"
-             app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"
-             app:title="考试">
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:title="考试">
+
 
             <com.google.android.material.appbar.MaterialToolbar
-                 android:layout_height="?attr/actionBarSize"
-                 android:layout_width="match_parent"
-                 android:textAlignment="center"
-                 app:title="考试"
-                 android:textDirection="firstStrong"
-                 android:id="@+id/t" />
+                android:id="@+id/t"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:titleCentered="true"
+                app:titleTextColor="@color/white" />
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.recyclerview.widget.RecyclerView
-             android:layout_height="match_parent"
-             android:layout_width="match_parent"
-             android:padding="8dp"
-             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-             android:id="@+id/recyclerView" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:padding="16dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
 
-    </LinearLayout>
-
-</FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

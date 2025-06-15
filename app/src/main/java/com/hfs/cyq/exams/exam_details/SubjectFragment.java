@@ -60,6 +60,7 @@ public class SubjectFragment extends Fragment {
       // 绑定科目数据到UI
       TextView tvSubject = view.findViewById(R.id.tvSubject);
       TextView tvScore = view.findViewById(R.id.tvScore);
+            TextView ll = view.findViewById(R.id.tve);
       cl = view.findViewById(R.id.tvClassRank);
       gl = view.findViewById(R.id.tvGradeRank);
       le = view.findViewById(R.id.tvlevel);
@@ -67,8 +68,8 @@ public class SubjectFragment extends Fragment {
       CircularProgressIndicator circularProgress = view.findViewById(R.id.circularProgress);
 
       tvSubject.setText(paper.getSubject());
-      tvScore.setText(paper.getScore() + "/" + paper.getManfen());
-
+      tvScore.setText(paper.getScore());
+      ll.setText("/" + paper.getManfen());
       // 计算百分比并显示进度条
       float percentage = (Float.parseFloat(paper.getScore()) / paper.getManfen() * 100);
       progressBar.setProgress((int) percentage);

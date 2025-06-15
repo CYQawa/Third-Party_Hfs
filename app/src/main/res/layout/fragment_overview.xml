@@ -24,7 +24,9 @@
                 <TextView
                      android:layout_height="wrap_content"
                      android:layout_width="match_parent"
-                     android:textSize="18sp"
+                     
+                    android:textAppearance="@style/TextAppearance.Material3.TitleLarge"
+                     android:textColor="@color/m3_sys_color_light_on_surface"
                      android:id="@+id/tvExamName"
                      android:textStyle="bold" />
 

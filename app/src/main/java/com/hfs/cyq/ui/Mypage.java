@@ -8,22 +8,20 @@ import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
-import com.squareup.picasso.Callback;
 import android.widget.TextView;
-import androidx.core.widget.TextViewCompat;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.gson.Gson;
 import com.hfs.cyq.Assistings.Databases;
-import com.kongzue.dialogx.dialogs.MessageDialog;
 import com.hfs.cyq.Assistings.ExamModel.Userinformation;
 import com.hfs.cyq.Assistings.Network;
 import com.hfs.cyq.R;
+import com.kongzue.dialogx.dialogs.InputDialog;
 import com.kongzue.dialogx.dialogs.MessageDialog;
 import com.kongzue.dialogx.dialogs.PopNotification;
 import com.kongzue.dialogx.interfaces.OnDialogButtonClickListener;
 import com.kongzue.dialogx.interfaces.OnInputDialogButtonClickListener;
-import com.kongzue.dialogx.dialogs.InputDialog;
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class Mypage extends LinearLayout {
@@ -50,8 +48,8 @@ public class Mypage extends LinearLayout {
     outLogin_btn.setOnClickListener(
         v -> {
           MessageDialog.show("提示", "确定退出登录吗？", "取消", "确定")
-.setCancelable(false)
-                .setOkButton(
+              .setCancelable(false)
+              .setOkButton(
                   new OnDialogButtonClickListener<MessageDialog>() {
                     @Override
                     public boolean onClick(MessageDialog baseDialog, View v) {
@@ -79,7 +77,7 @@ public class Mypage extends LinearLayout {
                     public boolean onClick(InputDialog baseDialog, View v, String inputStr) {
                       Picasso.get()
                           .load(inputStr)
-                            .error(R.drawable.ic_my)
+                          .error(R.drawable.ic_my)
                           .into(
                               im,
                               new Callback() {
@@ -102,7 +100,7 @@ public class Mypage extends LinearLayout {
 
                                 @Override
                                 public void onError(Exception e) {
-                                        MessageDialog.show("加载失败","图片直链加载失败,请检查链接是否正确","确定");
+                                  MessageDialog.show("加载失败", "图片直链加载失败,请检查链接是否正确", "确定");
                                   return;
                                 }
                               });
