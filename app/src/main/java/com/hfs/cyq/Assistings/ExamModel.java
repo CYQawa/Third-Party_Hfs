@@ -8,9 +8,8 @@ public class ExamModel {
   public class ExamDetailResponse {
     private int code;
     private String msg;
-    private Exam data; // 直接是Exam对象，不再是包含list的结构
+    private Exam data;
 
-    // getters & setters
     public int getCode() {
       return this.code;
     }
@@ -23,46 +22,16 @@ public class ExamModel {
       return this.data;
     }
   }
-
-  //  public class ExamData {
-  //    private List<Exam> list;
-  //    private int totalCount;
-  //    private String limitTip;
-  //
-  //    // Getters and Setters
-  //
-  //    public List<Exam> getList() {
-  //      return this.list;
-  //    }
-  //
-  //    public int getTotalCount() {
-  //      return this.totalCount;
-  //    }
-  //
-  //    public String getLimitTip() {
-  //      return this.limitTip;
-  //    }
-  //  }
-
-  // Exam.java
+  
   public class Exam implements Serializable {
     private long examId;
     private String name;
-    private String time; // 类型改为String
     private int manfen;
-    private int manfenBeforeGrading;
     private String score;
-    private String scoreBeforeGrading;
     private String classRank;
     private List<Paper> papers;
-    private int scoreMedal;
     private String level;
-    private double scoreRate;
-    private String difficultyLevel;
     private Compare compare;
-    private int progressMedal;
-
-    // getters & setters
 
     public List<Paper> getPapers() {
       return this.papers;
@@ -115,19 +84,11 @@ public class ExamModel {
 
   // Paper.java
   public class Paper implements Serializable {
-    private String paperId; // 字段名变更
-    private String pid;
+    private String paperId;
     private String name;
     private String subject;
     private int manfen;
-    private int manfenBeforeGrading;
-    private String score; // 注意是String类型
-    private String scoreBeforeGrading;
-    private int gradingType;
-    private int subPaperType;
-    private int star;
-
-    // getters & setters
+    private String score;
 
     public String getSubject() {
       return this.subject;
@@ -164,27 +125,7 @@ public class ExamModel {
 
   // 新增Compare类
   public class Compare implements Serializable {
-    private long id;
-    private String name;
-    private String time;
-    private int type;
-    private int curSocre;
-    private String score;
-    private int scoreWave;
-    private String classRank;
-    private int classRankWave;
     private int curGradeRank;
-    private int preGradeRank;
-    private String gradeRank;
-    private int gradeRankWave;
-    private int scoreRange;
-    private int gradeRankRange;
-    private int classRankRange;
-    private double preScoreRate;
-    private int dlWave;
-    private int matchType;
-
-    // getters & setters
 
     public int getCurGradeRank() {
       return this.curGradeRank;
@@ -195,12 +136,12 @@ public class ExamModel {
     private Data data;
 
     public class Data {
-      private Compare compare; // 重点是这个对象
+      private Compare compare;
       private String level;
 
       public class Compare {
-        private int cr; // 班级排名
-        private int gr; // 年级排名
+        private int cr;
+        private int gr;
 
         public int getCr() {
           return cr;
@@ -238,7 +179,6 @@ public class ExamModel {
     private String msg;
     private Data data;
 
-    // 嵌套类
     public class Data {
       private List<Exam> list;
 
@@ -248,10 +188,9 @@ public class ExamModel {
     }
 
     public class Exam {
-
-      private long examId; // 对应 examId
-      private String name; // 对应考试名字
-      private String score; // 对应总分（JSON 中是字符串类型）
+      private long examId;
+      private String name;
+      private String score;
       private Long time;
 
       public long getExamId() {
@@ -271,7 +210,6 @@ public class ExamModel {
       }
     }
 
-    // Getter 方法
     public Data getData() {
       return data;
     }
@@ -298,7 +236,6 @@ public class ExamModel {
     private String msg;
     private UserData data;
 
-    // 生成 getter/setter 方法
     public int getCode() {
       return code;
     }
@@ -311,9 +248,8 @@ public class ExamModel {
       return data;
     }
 
-    // 判断请求是否成功的方法
     public boolean isSuccess() {
-      return code == 0; // 根据你的业务逻辑判断
+      return code == 0;
     }
   }
 
@@ -328,7 +264,6 @@ public class ExamModel {
       this.time = time;
     }
 
-    // Getter 方法
     public String getId() {
       return id;
     }
@@ -339,6 +274,42 @@ public class ExamModel {
 
     public String getTime() {
       return time;
+    }
+  }
+
+  public class Userinformation {
+    private Data data;
+    public Data getData() {
+      return data;
+    }
+    public class Data {
+      private String avatar;
+      private LinkedStudent linkedStudent;
+
+      public String getAvatar() {
+        return avatar;
+      }
+
+      public LinkedStudent getLinkedStudent() {
+        return linkedStudent;
+      }
+    }
+
+    public class LinkedStudent {
+      private String schoolName;
+            private String studentName;
+      private String grade;
+
+      public String getSchoolName() {
+        return schoolName;
+      }
+
+            public String getStudentName() {
+                return studentName;
+            }
+      public String getGrade() {
+        return grade;
+      }
     }
   }
 }

@@ -43,6 +43,7 @@ dependencies {
     def dialogx_version = "0.0.50.beta36"
 implementation "com.github.kongzue.DialogX:DialogX:${dialogx_version}"
 implementation 'com.squareup.okhttp3:okhttp:4.9.0'
+implementation 'com.squareup.picasso:picasso:2.8'
 implementation 'com.google.code.gson:gson:2.8.9'
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.android.material:material:1.9.0")

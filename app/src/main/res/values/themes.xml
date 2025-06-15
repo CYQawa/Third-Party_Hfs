@@ -6,4 +6,9 @@
   </style>
 
   <style name="AppTheme" parent="Base.AppTheme" />
+    
+    <style name="CircleImageView" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
 </resources>

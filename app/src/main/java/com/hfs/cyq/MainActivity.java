@@ -4,13 +4,12 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import com.hfs.cyq.Assistings.ExamModel.ApiResponse;
-import com.google.gson.Gson;
 import android.view.View;
-import com.hfs.cyq.Assistings.ExamModel.UserData;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -18,11 +17,15 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.gson.Gson;
 import com.hfs.cyq.Assistings.Databases;
+import com.hfs.cyq.Assistings.ExamModel.ApiResponse;
+import com.hfs.cyq.Assistings.ExamModel.UserData;
 import com.hfs.cyq.Assistings.Network;
 import com.hfs.cyq.databinding.ActivityMainBinding;
 import com.hfs.cyq.ui.Exampage;
 import com.hfs.cyq.ui.Homepage;
+import com.hfs.cyq.ui.Mypage;
 import com.kongzue.dialogx.dialogs.FullScreenDialog;
 import com.kongzue.dialogx.dialogs.InputDialog;
 import com.kongzue.dialogx.dialogs.MessageDialog;
@@ -35,7 +38,9 @@ import com.kongzue.dialogx.interfaces.OnInputDialogButtonClickListener;
 public class MainActivity extends AppCompatActivity {
   private ActivityMainBinding binding;
   private FrameLayout frameContainer;
-
+  private Homepage homepage;
+  private Exampage exampage;
+  private Mypage mypage;
   private View currentPage;
   private Databases databases;
   private Network network;
@@ -48,6 +53,10 @@ public class MainActivity extends AppCompatActivity {
   private EditText editPassword;
   private TextView btnLicense;
 
+  // 添加动画控制变量
+  private AnimatorSet currentAnimator;
+  private boolean isSwitching = false;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -56,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
     databases = new Databases(this);
     network = new Network(this);
+
+    // 初始化所有页面实例
+
     String token = databases.getToken();
 
     if (token == null) {
@@ -79,22 +91,28 @@ public class MainActivity extends AppCompatActivity {
           .setCancelable(false)
           .setAllowInterceptTouch(false)
           .show();
+      return;
     }
 
+    homepage = new Homepage(this);
+    exampage = new Exampage(this);
+    mypage = new Mypage(this);
     frameContainer = findViewById(R.id.fragment_container);
-    switchPage(this, new Homepage(this));
+    switchPage(homepage); // 初始显示首页
+
     BottomNavigationView bottomNav = findViewById(R.id.bottom_nav_view);
     bottomNav.setOnItemSelectedListener(
         item -> {
+          if (isSwitching) return false;
           int itemId = item.getItemId();
           if (itemId == R.id.nav_home) {
-            switchPage(this, new Homepage(this));
+            switchPage(homepage);
             return true;
           } else if (itemId == R.id.nav_exam) {
-            switchPage(this, new Exampage(this));
+            switchPage(exampage);
             return true;
           } else if (itemId == R.id.nav_profile) {
-
+            switchPage(mypage);
             return true;
           }
           return false;
@@ -104,42 +122,89 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onDestroy() {
     super.onDestroy();
+    // 清除所有动画引用
+    if (currentAnimator != null) {
+      currentAnimator.cancel();
+      currentAnimator = null;
+    }
     this.binding = null;
   }
 
-  private void switchPage(Context context, View newPage) {
+  private void switchPage(View newPage) {
+    // 防止快速切换导致的动画重叠
+    if (isSwitching || currentPage == newPage) {
+      return;
+    }
+
+    // 设置切换状态
+    isSwitching = true;
+
     View oldPage = currentPage;
+
+    // 检查新页面是否已有父容器，如果有则先移除
+    if (newPage.getParent() != null) {
+      ((ViewGroup) newPage.getParent()).removeView(newPage);
+    }
+
+    // 添加新页面到容器
     frameContainer.addView(newPage);
     newPage.setAlpha(0f);
-    newPage.setTranslationY(500f);
-    ObjectAnimator newAlpha = ObjectAnimator.ofFloat(newPage, "alpha", 0f, 1f);
-    ObjectAnimator newTranslateY = ObjectAnimator.ofFloat(newPage, "translationY", 500f, 0f);
-    ObjectAnimator newScaleX = ObjectAnimator.ofFloat(newPage, "scaleX", 0.5f, 1f);
-    ObjectAnimator newScaleY = ObjectAnimator.ofFloat(newPage, "scaleY", 0.5f, 1f);
-    AnimatorSet enterSet = new AnimatorSet();
-    enterSet.playTogether(newAlpha, newTranslateY, newScaleX, newScaleY);
-    enterSet.setDuration(500);
-    enterSet.setInterpolator(new DecelerateInterpolator());
+
+    // 创建淡入动画
+    ObjectAnimator fadeIn = ObjectAnimator.ofFloat(newPage, "alpha", 0f, 1f);
+    fadeIn.setDuration(250);
+    fadeIn.setInterpolator(new DecelerateInterpolator());
+
+    AnimatorSet animatorSet = new AnimatorSet();
+
     if (oldPage != null) {
-      ObjectAnimator oldAlpha = ObjectAnimator.ofFloat(oldPage, "alpha", 1f, 0f);
-      ObjectAnimator oldTranslateY = ObjectAnimator.ofFloat(oldPage, "translationY", 0f, -500f);
-      AnimatorSet exitSet = new AnimatorSet();
-      exitSet.playTogether(oldAlpha, oldTranslateY);
-      exitSet.setDuration(300);
-      AnimatorSet combinedSet = new AnimatorSet();
-      combinedSet.playTogether(enterSet, exitSet);
-      combinedSet.addListener(
+      // 创建淡出动画
+      ObjectAnimator fadeOut = ObjectAnimator.ofFloat(oldPage, "alpha", 1f, 0f);
+      fadeOut.setDuration(150);
+
+      // 同时执行淡出和淡入
+      animatorSet.playTogether(fadeOut, fadeIn);
+
+      animatorSet.addListener(
           new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
               frameContainer.removeView(oldPage);
+              currentPage = newPage;
+              isSwitching = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+              if (oldPage.getParent() != null) {
+                frameContainer.removeView(oldPage);
+              }
+              newPage.setAlpha(1f);
+              currentPage = newPage;
+              isSwitching = false;
             }
           });
-      combinedSet.start();
     } else {
-      enterSet.start();
+      animatorSet.play(fadeIn);
+      animatorSet.addListener(
+          new AnimatorListenerAdapter() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+              currentPage = newPage;
+              isSwitching = false;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animation) {
+              newPage.setAlpha(1f);
+              currentPage = newPage;
+              isSwitching = false;
+            }
+          });
     }
-    currentPage = newPage;
+
+    animatorSet.start();
+    currentAnimator = animatorSet;
   }
 
   private void initFullScreenLoginDemo(final FullScreenDialog fullScreenDialog) {
@@ -166,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
                       public boolean onClick(InputDialog baseDialog, View v, String inputStr) {
                         databases.saveToken(inputStr);
                         fullScreenDialog.dismiss();
+                        restartActivity();
                         return false;
                       }
                     })
@@ -227,10 +293,7 @@ public class MainActivity extends AppCompatActivity {
                             ApiResponse apiResponse = gson.fromJson(data, ApiResponse.class);
                             if (apiResponse.getCode() != 0) {
                               WaitDialog.dismiss();
-                              MessageDialog.show(
-                                  "登陆失败",
-                                  "Msg: " + apiResponse.getMsg(),
-                                  "确定");
+                              MessageDialog.show("登陆失败", "Msg: " + apiResponse.getMsg(), "确定");
 
                               return;
                             } // 根据接口文档判断成功码
@@ -240,14 +303,12 @@ public class MainActivity extends AppCompatActivity {
                             WaitDialog.dismiss();
 
                             PopNotification.show("登陆成功");
+                            restartActivity();
                           }
 
                           @Override
                           public void onFailure(Exception e) {
                             WaitDialog.dismiss();
-                            PopNotification.show(e.toString());
-                            MessageDialog.show(
-                                "请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
                             e.printStackTrace();
                           }
                         });
@@ -261,5 +322,15 @@ public class MainActivity extends AppCompatActivity {
     DisplayMetrics displayMetrics = new DisplayMetrics();
     getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
     return displayMetrics.widthPixels;
+  }
+
+  private void restartActivity() {
+    if (this instanceof Activity) {
+      Activity activity = (Activity) this;
+      Intent intent = activity.getIntent();
+      activity.finish(); // 结束当前 Activity
+      activity.startActivity(intent); // 用相同的 Intent 重新启动
+      activity.overridePendingTransition(0, 0); // 取消过渡动画，让重启无感知
+    }
   }
 }

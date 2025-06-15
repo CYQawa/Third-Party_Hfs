@@ -2,19 +2,18 @@ package com.hfs.cyq.Assistings;
 
 import android.content.Context;
 import android.util.Base64;
-import android.util.Log;
-import com.kongzue.dialogx.dialogs.MessageDialog;
-import com.kongzue.dialogx.dialogs.PopNotification;
-import com.kongzue.dialogx.dialogs.WaitDialog;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.HttpUrl;
 import okhttp3.MediaType;
+import com.kongzue.dialogx.dialogs.MessageDialog;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
+import com.hfs.cyq.Assistings.ExamModel.ExamDetailResponse;
+import com.google.gson.Gson;
 import okhttp3.Response;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +21,7 @@ import org.json.JSONObject;
 public class Network {
   private final OkHttpClient client;
   private final String token;
+  private Gson gson;
 
   public Network(Context context) {
     Databases databases = new Databases(context);
@@ -31,6 +31,7 @@ public class Network {
 
   public interface NetworkCallback {
     void onSuccess(String data);
+
     void onFailure(Exception e);
   }
 
@@ -46,6 +47,7 @@ public class Network {
             new Callback() {
               @Override
               public void onFailure(Call call, IOException e) {
+                MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
                 callback.onFailure(e);
               }
 
@@ -74,6 +76,7 @@ public class Network {
             new Callback() {
               @Override
               public void onFailure(Call call, IOException e) {
+                    MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
                 callback.onFailure(e);
               }
 
@@ -88,12 +91,13 @@ public class Network {
               }
             });
   }
-    public void getSubjectRank(String examId,String paperId, NetworkCallback callback) {
+
+  public void getSubjectRank(String examId, String paperId, NetworkCallback callback) {
     HttpUrl url =
         HttpUrl.parse("https://hfs-be.yunxiao.com/" + "v4/exam/paper/overview")
             .newBuilder()
             .addQueryParameter("examId", examId)
-        .addQueryParameter("paperId", paperId)
+            .addQueryParameter("paperId", paperId)
             .build();
     Request request = new Request.Builder().url(url).addHeader("hfs-token", token).build();
     client
@@ -102,6 +106,7 @@ public class Network {
             new Callback() {
               @Override
               public void onFailure(Call call, IOException e) {
+                    MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
                 callback.onFailure(e);
               }
 
@@ -146,6 +151,35 @@ public class Network {
             new Callback() {
               @Override
               public void onFailure(Call call, IOException e) {
+                    MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
+                callback.onFailure(e);
+              }
+
+              @Override
+              public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                  String data = response.body().string();
+                  callback.onSuccess(data);
+                } else {
+                  callback.onFailure(new IOException("Request failed: " + response.code()));
+                }
+              }
+            });
+  }
+
+  public void getMyMessage(NetworkCallback callback) {
+    Request request =
+        new Request.Builder()
+            .url("https://hfs-be.yunxiao.com/v2/user-center/user-snapshot?devicetype=1")
+            .addHeader("Cookie", "hfs-session-id=" + token)
+            .build();
+    client
+        .newCall(request)
+        .enqueue(
+            new Callback() {
+              @Override
+              public void onFailure(Call call, IOException e) {
+                    MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
                 callback.onFailure(e);
               }
 

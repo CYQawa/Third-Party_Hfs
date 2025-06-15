@@ -46,11 +46,12 @@ public class ExamAdapter extends RecyclerView.Adapter<ExamAdapter.ExamViewHolder
         holder.tvExamId.setText("考试ID: " + exam.getId());
         holder.tvTotalScore.setText("日期: " + exam.getTime());
 
-        // 点击事件
-        holder.itemView.setOnClickListener(v -> {
-            if (listener != null) {
-                listener.onItemClick(exam); // 传递整个考试对象
-            }
+    // 点击事件
+    holder.itemView.setOnClickListener(
+        v -> {
+          if (listener != null) {
+            listener.onItemClick(exam); // 传递整个考试对象
+          }
         });
     }
 

@@ -38,7 +38,7 @@ public class Exampage extends LinearLayout implements ExamAdapter.OnItemClickLis
 
   @Override
   public void onItemClick(ExamListdata exam) {
-   // PopNotification.show(exam.getName() + "\nID：" + exam.getId());
+    // PopNotification.show(exam.getName() + "\nID：" + exam.getId());
     Intent intent = new Intent(context, ExamDetailActivity.class);
     intent.putExtra("EXAM_ID", exam.getId()); // int
     context.startActivity(intent);
@@ -119,8 +119,6 @@ public class Exampage extends LinearLayout implements ExamAdapter.OnItemClickLis
           @Override
           public void onFailure(Exception e) {
             WaitDialog.dismiss();
-            PopNotification.show(e.toString());
-            MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
             e.printStackTrace();
           }
         });

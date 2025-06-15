@@ -10,13 +10,21 @@
          android:layout_width="match_parent"
          android:orientation="vertical">
 
-        <com.google.android.material.appbar.MaterialToolbar
-             android:layout_height="?attr/actionBarSize"
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+             android:layout_height="200dp"
              android:layout_width="match_parent"
-             android:textAlignment="center"
-             app:title="考试"
-             android:id="@+id/t"
-             android:textDirection="firstStrong" />
+             app:expandedTitleTextAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+             app:title="考试">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                 android:layout_height="?attr/actionBarSize"
+                 android:layout_width="match_parent"
+                 android:textAlignment="center"
+                 app:title="考试"
+                 android:textDirection="firstStrong"
+                 android:id="@+id/t" />
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
 
         <androidx.recyclerview.widget.RecyclerView
              android:layout_height="match_parent"

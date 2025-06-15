@@ -22,12 +22,13 @@ public class SubjectFragment extends Fragment {
   private static final String ARG_PAPER = "paper";
   private Paper paper;
   private long examId;
-  private Network network;
   private Databases databases;
   private Gson gson;
-    private TextView cl;
-    private TextView gl;
-private TextView le;
+    private Network network;
+  private TextView cl;
+  private TextView gl;
+  private TextView le;
+
   public static SubjectFragment newInstance(Paper paper, long examId) {
     SubjectFragment fragment = new SubjectFragment();
     Bundle args = new Bundle();
@@ -59,9 +60,9 @@ private TextView le;
       // 绑定科目数据到UI
       TextView tvSubject = view.findViewById(R.id.tvSubject);
       TextView tvScore = view.findViewById(R.id.tvScore);
-            cl = view.findViewById(R.id.tvClassRank);
-            gl = view.findViewById(R.id.tvGradeRank);
-            le = view.findViewById(R.id.tvlevel);
+      cl = view.findViewById(R.id.tvClassRank);
+      gl = view.findViewById(R.id.tvGradeRank);
+      le = view.findViewById(R.id.tvlevel);
       ProgressBar progressBar = view.findViewById(R.id.progressBar);
       CircularProgressIndicator circularProgress = view.findViewById(R.id.circularProgress);
 
@@ -86,15 +87,13 @@ private TextView le;
           @Override
           public void onSuccess(String data) {
             PaperOverview response = gson.fromJson(data, PaperOverview.class);
-                    cl.setText("· "+response.getData().getCompare().getCr()+" 名");
-                    gl.setText("· "+response.getData().getCompare().getGr()+" 名");
-                    le.setText("· " +response.getData().getLevel());
+            cl.setText("· " + response.getData().getCompare().getCr() + " 名");
+            gl.setText("· " + response.getData().getCompare().getGr() + " 名");
+            le.setText("· " + response.getData().getLevel());
           }
 
           @Override
           public void onFailure(Exception e) {
-            PopNotification.show(e.toString());
-            //   MessageDialog.show("请求失败！", "报错： " + e.toString() + "\n请检查网络连接正常", "确定");
             e.printStackTrace();
           }
         });
